@@ -1,34 +1,36 @@
 --OTNN Break Burst
 --Scripted by Raivost
-function c99930100.initial_effect(c)
+--Fix for compatibility with edopro by banyspy
+local s,id=GetID()
+function s.initial_effect(c)
   --(1) Negate
   local e1=Effect.CreateEffect(c)
-  e1:SetDescription(aux.Stringid(99930100,0))
+  e1:SetDescription(aux.Stringid(id,0))
   e1:SetCategory(CATEGORY_DISABLE_SUMMON+CATEGORY_DESTROY+CATEGORY_DAMAGE)
   e1:SetType(EFFECT_TYPE_ACTIVATE)
   e1:SetCode(EVENT_SPSUMMON)
-  e1:SetCountLimit(1,99930100+EFFECT_COUNT_CODE_OATH)
-  e1:SetCondition(c99930100.negcon)
-  e1:SetTarget(c99930100.negtg)
-  e1:SetOperation(c99930100.negop)
+  e1:SetCountLimit(1,id,EFFECT_COUNT_CODE_OATH)
+  e1:SetCondition(s.negcon)
+  e1:SetTarget(s.negtg)
+  e1:SetOperation(s.negop)
   c:RegisterEffect(e1)
 end
 --(1) Negate
-function c99930100.negcon(e,tp,eg,ep,ev,re,r,rp)
+function s.negcon(e,tp,eg,ep,ev,re,r,rp)
   return tp~=ep and Duel.GetCurrentChain()==0
 end
-function c99930100.negfilter(c)
+function s.negfilter(c)
   return c:IsFaceup() and c:IsType(TYPE_XYZ) and c:IsSetCard(0x993) and c:GetOverlayCount()>1
 end
-function c99930100.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
-  if chk==0 then return Duel.IsExistingTarget(c99930100.negfilter,tp,LOCATION_MZONE,0,1,nil) end
+function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
+  if chk==0 then return Duel.IsExistingTarget(s.negfilter,tp,LOCATION_MZONE,0,1,nil) end
   Duel.Hint(HINT_OPSELECTED,1-tp,e:GetDescription())
   Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
-  Duel.SelectTarget(tp,c99930100.negfilter,tp,LOCATION_MZONE,0,1,1,nil)
+  Duel.SelectTarget(tp,s.negfilter,tp,LOCATION_MZONE,0,1,1,nil)
   Duel.SetOperationInfo(0,CATEGORY_DISABLE_SUMMON,eg,eg:GetCount(),0,0)
   Duel.SetOperationInfo(0,CATEGORY_DESTROY,eg,eg:GetCount(),0,0)
 end
-function c99930100.negop(e,tp,eg,ep,ev,re,r,rp)
+function s.negop(e,tp,eg,ep,ev,re,r,rp)
   local c=e:GetHandler()
   local tc=Duel.GetFirstTarget()
   if tc:IsFacedown() or not tc:IsRelateToEffect(e) then return end

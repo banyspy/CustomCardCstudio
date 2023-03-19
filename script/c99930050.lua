@@ -1,27 +1,29 @@
 --OTNN Attribute Boost
 --Scripted by Raivost
-function c99930050.initial_effect(c)
+--Fix for compatibility with edopro by banyspy
+local s,id=GetID()
+function s.initial_effect(c)
   --(1) Double rank
   local e1=Effect.CreateEffect(c)
-  e1:SetDescription(aux.Stringid(99930050,0))
+  e1:SetDescription(aux.Stringid(id,0))
   e1:SetCategory(CATEGORY_ATKCHANGE)
   e1:SetType(EFFECT_TYPE_ACTIVATE)
   e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
   e1:SetCode(EVENT_FREE_CHAIN)
-  e1:SetTarget(c99930050.rktg)
-  e1:SetOperation(c99930050.rkop)
+  e1:SetTarget(s.rktg)
+  e1:SetOperation(s.rkop)
   c:RegisterEffect(e1)
 end
-function c99930050.rkfilter(c)
+function s.rkfilter(c)
   return c:IsFaceup() and c:IsSetCard(0x993) and c:IsType(TYPE_XYZ)
 end
-function c99930050.rktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-  if chk==0 then return Duel.IsExistingTarget(c99930050.rkfilter,tp,LOCATION_MZONE,0,1,nil) end
+function s.rktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+  if chk==0 then return Duel.IsExistingTarget(s.rkfilter,tp,LOCATION_MZONE,0,1,nil) end
   Duel.Hint(HINT_OPSELECTED,1-tp,e:GetDescription())
   Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
-  Duel.SelectTarget(tp,c99930050.rkfilter,tp,LOCATION_MZONE,0,1,1,nil)
+  Duel.SelectTarget(tp,s.rkfilter,tp,LOCATION_MZONE,0,1,1,nil)
 end
-function c99930050.rkop(e,tp,eg,ep,ev,re,r,rp)    
+function s.rkop(e,tp,eg,ep,ev,re,r,rp)    
   local tc=Duel.GetFirstTarget()
   if tc:IsRelateToEffect(e) and tc:IsFaceup() then
     local e1=Effect.CreateEffect(e:GetHandler())
@@ -31,8 +33,8 @@ function c99930050.rkop(e,tp,eg,ep,ev,re,r,rp)
     e1:SetReset(RESET_EVENT+0x1fe0000)
     tc:RegisterEffect(e1)
   end
-  if Duel.IsExistingMatchingCard(Card.IsRace,tp,LOCATION_GRAVE+LOCATION_DECK,0,1,nil,RACE_WARRIOR) and Duel.SelectYesNo(tp,aux.Stringid(99930050,1)) then 
-    Duel.Hint(HINT_OPSELECTED,1-tp,aux.Stringid(99930050,2))
+  if Duel.IsExistingMatchingCard(Card.IsRace,tp,LOCATION_GRAVE+LOCATION_DECK,0,1,nil,RACE_WARRIOR) and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then 
+    Duel.Hint(HINT_OPSELECTED,1-tp,aux.Stringid(id,2))
     Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_XMATERIAL)
     local g=Duel.SelectMatchingCard(tp,Card.IsRace,tp,LOCATION_GRAVE+LOCATION_DECK,0,1,1,nil,RACE_WARRIOR)
     if g:GetCount()>0 and not g:GetFirst():IsHasEffect(EFFECT_NECRO_VALLEY) and Duel.Overlay(tc,g)~=0 then
