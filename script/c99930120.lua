@@ -99,8 +99,8 @@ function s.moveop(e,tp,eg,ep,ev,re,r,rp)
   if not tc:IsRelateToEffect(e) then return end
   if tc:IsControler(tp) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 then
     Duel.Hint(HINT_SELECTMSG,tp,571)
-    local s=Duel.SelectDisableField(tp,1,LOCATION_MZONE,0,0)
-    local nseq=math.log(s,2)
+    local ms=Duel.SelectDisableField(tp,1,LOCATION_MZONE,0,0)
+    local nseq=math.log(ms,2)
     if Duel.MoveSequence(tc,nseq)~=0 and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp)
     and Duel.GetLocationCountFromEx(tp)>0 and Duel.SelectYesNo(tp,aux.Stringid(id,2)) then
       Duel.Hint(HINT_OPSELECTED,1-tp,aux.Stringid(id,3))
