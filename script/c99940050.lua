@@ -9,7 +9,7 @@ function s.initial_effect(c)
   e1:SetCategory(CATEGORY_COIN+CATEGORY_DECKDES)
   e1:SetType(EFFECT_TYPE_ACTIVATE)
   e1:SetCode(EVENT_FREE_CHAIN)
-  e1:SetCountLimit(1,id+EFFECT_COUNT_CODE_OATH)
+  e1:SetCountLimit(1,id,EFFECT_COUNT_CODE_OATH)
   e1:SetCondition(s.tgcon)
   e1:SetTarget(s.tgtg)
   e1:SetOperation(s.tgop)
@@ -26,6 +26,7 @@ function s.initial_effect(c)
   e2:SetOperation(s.rthop)
   c:RegisterEffect(e2)
 end
+s.toss_coin=true
 --(1) Send to GY
 function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
   local tc1=Duel.GetFieldCard(tp,LOCATION_PZONE,0)

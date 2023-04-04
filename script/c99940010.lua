@@ -42,7 +42,7 @@ function s.initial_effect(c)
   --(1) Disable Summon
   local e4=Effect.CreateEffect(c)
   e4:SetDescription(aux.Stringid(id,4))
-  e4:SetCategory(CATEGORY_DISABLE_SUMMON+CATEGORY_DESTROY)
+  e4:SetCategory(CATEGORY_DISABLE_SUMMON+CATEGORY_DESTROY+CATEGORY_COIN)
   e4:SetType(EFFECT_TYPE_QUICK_O)
   e4:SetCode(EVENT_SPSUMMON)
   e4:SetRange(LOCATION_MZONE)
@@ -67,6 +67,8 @@ function s.initial_effect(c)
   e6:SetValue(1)
   c:RegisterEffect(e6)
 end
+s.toss_coin=true
+s.roll_dice=true
 --Pendulum Effects
 --(1) Scale Change
 function s.sccon(e,tp,eg,ep,ev,re,r,rp)

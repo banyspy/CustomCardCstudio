@@ -1,5 +1,6 @@
 --HN UD Neptune
 --Scripted by Raivost
+--Fix for compatibility with edopro by banyspy
 local s,id=GetID()
 function s.initial_effect(c)
   --(1) Special Summon from hand
@@ -17,7 +18,7 @@ function s.initial_effect(c)
   e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
   e2:SetType(EFFECT_TYPE_IGNITION)
   e2:SetRange(LOCATION_GRAVE)
-  e2:SetCountLimit(1,id+1)
+  e2:SetCountLimit(1,{id,1})
   e2:SetCondition(s.xyzcon)
   e2:SetTarget(s.xyztg)
   e2:SetOperation(s.xyzop)

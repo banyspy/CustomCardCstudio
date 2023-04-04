@@ -1,10 +1,11 @@
 --HN Bouquet
 --Scripted by Raivost
+--Fix for compatibility with edopro by banyspy
 local s,id=GetID()
 function s.initial_effect(c)
-  c:EnableReviveLimit()
-  --Link Summon
-  aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkSetCard,0x998),2,2)
+  --link summon
+	c:EnableReviveLimit()
+	Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x998),2)
   --(1) Shuffle into the Deck
   local e1=Effect.CreateEffect(c)
   e1:SetDescription(aux.Stringid(id,0))

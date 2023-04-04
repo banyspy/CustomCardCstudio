@@ -1,10 +1,11 @@
 --HN Goddess of Order White Heart
 --Scripted by Raivost
+--Fix for compatibility with edopro by banyspy
 local s,id=GetID()
 function s.initial_effect(c)
-  c:EnableReviveLimit()
-  --Link Summon
-  aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkSetCard,0x998),2,nil,s.matcheck)
+  --link summon
+	c:EnableReviveLimit()
+	Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x998),2,nil,s.matcheck)
   --(1) Special Summon
   local e1=Effect.CreateEffect(c)
   e1:SetDescription(aux.Stringid(id,0))
@@ -32,7 +33,7 @@ function s.matcheck(g,lc)
   return g:IsExists(s.matfilter,1,nil)
 end
 function s.matfilter(c)
-  return c:IsSetCard(0x998) and aux.IsCodeListed(c,99980110)
+  return c:IsSetCard(0x998) and c:ListsCode(99980110)
 end
 --(1) Special Summon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)

@@ -68,6 +68,7 @@ function s.initial_effect(c)
   e7:SetValue(1)
   c:RegisterEffect(e7)
 end
+s.roll_dice=true
 --Pendulum Effects
 --(1) Scale Change
 function s.sccon(e,tp,eg,ep,ev,re,r,rp)

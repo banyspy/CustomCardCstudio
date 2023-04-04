@@ -1,8 +1,9 @@
 --HN Falcom
 --Scripted by Raivost
+--Fix for compatibility with edopro by banyspy
 local s,id=GetID()
 function s.initial_effect(c)
-  aux.EnablePendulumAttribute(c)
+  Pendulum.AddProcedure(c)
   --Pendulum Effects
   --(1) Destroy 1
   local e1=Effect.CreateEffect(c)
@@ -38,7 +39,7 @@ function s.initial_effect(c)
   e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
   e4:SetCode(EVENT_LEAVE_FIELD)
   e4:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL+EFFECT_FLAG_DELAY)
-  e4:SetCountLimit(1,id+1)
+  e4:SetCountLimit(1,{id,1})
   e4:SetCondition(s.descon2)
   e4:SetTarget(s.destg2)
   e4:SetOperation(s.desop2)
